@@ -11,7 +11,7 @@
 		<div>
 			<form action="#" th:action="@{/balance}" th:object="${transaction}" method="post">
 				<p>Account Number:
-		 			<input type="text" th:field="*{acctNo}" th:required="required"/>
+		 			<input type="text" th:field="*{acctNo}" />
 					<span th:if="${#fields.hasErrors('acctNo')}" th:errors="*{acctNo}"></span>
 				</p>
 				<p> <input type="submit" value="Submit"/> <input type="reset" value="Reset"/> </p>

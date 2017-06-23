@@ -85,19 +85,18 @@ public class TransactionController {
 	}
 	
 	@RequestMapping(path="/balance", method=RequestMethod.POST)
-	public String balance(@Valid Transaction tr,BindingResult bindingResult,Long acctNo){
-		if(bindingResult.hasErrors()){
-			return "accountForm";
-		}
+	public String balance(Long acctNo,Model model){
+		
 		List<Transaction> t = getTransWithAccNo(acctNo);
 		if(t == null || t.size() == 0){
 			Transaction trans = new Transaction();
 			trans.setAcctNo(acctNo);
 			t.add(trans);
+			model.addAttribute("transactions", t);
 			return "transHistory";
 			
 		}else{
-			
+			model.addAttribute("transactions", t);
 			return "transHistory";
 		}	
 		

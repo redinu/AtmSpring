@@ -11,11 +11,11 @@
 		<div>
 			<form action="#" th:action="@{/withdraw}" th:object="${transaction}" method="post">
 				<p>Account Number:
-		 			<input type="text" th:field="*{acctNo}"/>
+		 			<input type="text" th:field="*{acctNo}" th:required="required"/>
 					<span th:if="${#fields.hasErrors('acctNo')}" th:errors="*{acctNo}"></span>
 				</p>
 				<p>Amount to withdraw: 
-					<input type="text" th:field="*{amount}"/>
+					<input type="text" th:field="*{amount}" th:required="required" />
 					<span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
 				</p>
 					<input type="hidden" th:field= "*{withdrawal}" th:value = "*{withdrawal}==true"/>

@@ -3,9 +3,12 @@ package com.example.demo;
 import java.sql.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,8 +32,11 @@ public class TransactionController {
 		return "withdrawal";
 	}
 	@RequestMapping(path="/withdraw", method=RequestMethod.POST)
-	public String withdraw(Long acctNo, Double amount, Model model){
+	public String withdraw(@Valid Transaction t ,  BindingResult bindingResult, Long acctNo, Double amount, Model model){
 		
+		if(bindingResult.hasErrors()){
+			return "withdrawal";
+		}
 			Transaction tnew = new Transaction();
 			tnew.setAcctNo(acctNo);
 			tnew.setWithdrawal(true);
@@ -52,8 +58,11 @@ public class TransactionController {
 		return "deposit";
 	}
 	@RequestMapping(path="/deposit", method=RequestMethod.POST)
-	public String deposit(Long acctNo, Double amount, Model model){
+	public String deposit(@Valid Transaction t ,  BindingResult bindingResult,Long acctNo, Double amount, Model model){
 	
+			if(bindingResult.hasErrors()){
+				return "deposit";
+			}
 			Transaction tnew = new Transaction();
 			tnew.setAcctNo(acctNo);
 			tnew.setDeposit(true);

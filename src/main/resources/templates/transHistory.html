@@ -17,12 +17,16 @@
 				<th>Amount</th>
 				<th>Transaction Type</th>
 				<th>Transaction Date</th>
+				<th>Balance</th>
 				
 			</tr>
-			<tr th:each="transaction: ${transactions}">
+			<tr th:each="transaction,status: ${transactions}">
+			
 				<td th:text="${transaction.amount}"/>
 				<td th:text="${transaction.action}"/>
 				<td th:text="${transaction.date}"/>
+				<td  th:text="${balance[status].balance}"/>
+				
 			</tr>
 		</table>
 	</body>

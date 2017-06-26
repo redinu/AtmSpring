@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -93,10 +94,14 @@ public class TransactionController {
 			trans.setAcctNo(acctNo);
 			t.add(trans);
 			model.addAttribute("transactions", t);
+			List<Double> balance = calculateBalance(t);
+			model.addAttribute("balance", balance);
 			return "transHistory";
 			
 		}else{
+			List<Double> balance = calculateBalance(t);
 			model.addAttribute("transactions", t);
+			model.addAttribute("balance", balance);
 			return "transHistory";
 		}	
 		
@@ -107,6 +112,18 @@ public class TransactionController {
 		List<Transaction> t = transactionRepository.findByAcctNo(acctNo);
 		
 		return t;
+		
+	}
+	
+	public List<Double> calculateBalance(List<Transaction> trans){
+		
+		double balance = 0;
+		List<Double> balList = new ArrayList<Double>();
+		for(Transaction t: trans){
+			balance = balance + t.getAmount();
+			balList.add(balance);
+		}
+		return balList;
 		
 	}
 	
